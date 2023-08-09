@@ -1,16 +1,37 @@
 {
-  "name": "my-storybook",
-  "private": true,
-  "version": "0.0.0",
+  "name": "dtv-my-storybook",
+  "private": false,
+  "version": "0.1.0",
   "type": "module",
+  "license": "MIT",
+  "typings": "dist/index.d.ts",
+  "main": "dist/index.js",
+  "repository": {
+    "url": "https://github.com/TrejoDev/sb-components",
+    "type": "git"
+  },
+  "peerDependencies": {
+    "react": ">=16",
+    "typescript": ">=4.0.0"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ]
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "dev": "storybook dev -p 6006",
-    "build": "storybook build",
+    "build": "yarn clean && tsc && yarn copy-files",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "chromatic": "chromatic --project-token CHROMATIC_PROJECT_TOKEN"
+    "clean": "rimraf dist/",
+    "copy-files": "copyfiles -u 1 src/**/*.css dist/"
   },
   "dependencies": {
     "react": "^18.2.0",
@@ -30,13 +51,23 @@
     "@typescript-eslint/eslint-plugin": "^5.61.0",
     "@typescript-eslint/parser": "^5.61.0",
     "@vitejs/plugin-react": "^4.0.1",
-    "chromatic": "^6.20.0",
+    "copyfiles": "^2.4.1",
     "eslint": "^8.44.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.1",
     "eslint-plugin-storybook": "^0.6.13",
+    "rimraf": "^5.0.1",
+    "semantic-release": "^21.0.7",
     "storybook": "^7.2.0",
     "typescript": "^5.0.2",
     "vite": "^4.4.0"
-  }
+  },
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
+    "@semantic-release/github",
+    "@semantic-release/npm",
+    "@semantic-release/git"
+  ]
 }
